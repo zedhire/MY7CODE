@@ -96,114 +96,33 @@
             width: 100%;
             max-width: 400px;
         }
-
-        /* إعدادات أيقونة اللغة */
-        .language-selector {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 18px;
-            color: #ffffff;
-            cursor: pointer;
-        }
-
-        /* إعدادات القائمة المنسدلة */
-        .dropdown {
-            display: none;
-            position: absolute;
-            top: 40px;
-            right: 10px;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            width: 150px;
-            text-align: left;
-            z-index: 1000;
-        }
-
-        .dropdown a {
-            display: block;
-            padding: 10px;
-            color: #000000;
-            text-decoration: none;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .dropdown a:hover {
-            background-color: #f0f0f0;
-        }
-
-        /* عرض القائمة عند النقر */
-        .language-selector.active + .dropdown {
-            display: block;
-        }
     </style>
 </head>
 <body>
     <!-- شريط العنوان العلوي -->
     <div class="top-bar">
-        <div class="language-selector" onclick="toggleDropdown(event)">
-            Language
-        </div>
-        <div class="dropdown">
-            <a href="#" onclick="changeLanguage('en'); closeDropdown()">English</a>
-            <a href="#" onclick="changeLanguage('ar'); closeDropdown()">العربية</a>
-        </div>
+        <h1>Free AI Rhyme Generator</h1>
     </div>
 
     <div class="container">
-        <h1 id="title">Free AI Rhyme</h1>
-        <h2 id="subtitle">Generator</h2>
-        <p id="description">Create engaging rhymes and short poems with AI assistance. Perfect for poets, songwriters, and creative minds.</p>
+        <p>Create engaging rhymes and short poems with AI assistance.</p>
         <input type="text" id="input" placeholder="Enter a word or phrase to get the rhyme">
-        <button class="btn" id="button" onclick="saveToCSV()">Generate Rhyme</button>
+        <button class="btn" onclick="saveToCSV()">Generate & Save Rhyme</button>
     </div>
 
     <script>
-        let translations = {};
-
-        // تحميل الترجمات من ملف JSON
-        fetch('translations.json')
-            .then(response => response.json())
-            .then(data => {
-                translations = data;
-            });
-
-        function toggleDropdown(event) {
-            event.stopPropagation();
-            const languageSelector = document.querySelector('.language-selector');
-            languageSelector.classList.toggle('active');
-        }
-
-        function changeLanguage(lang) {
-            const title = document.getElementById('title');
-            const subtitle = document.getElementById('subtitle');
-            const description = document.getElementById('description');
-            const input = document.getElementById('input');
-            const button = document.getElementById('button');
-
-            title.textContent = translations[lang].title;
-            subtitle.textContent = translations[lang].subtitle;
-            description.textContent = translations[lang].description;
-            input.placeholder = translations[lang].input_placeholder;
-            button.textContent = translations[lang].button_text;
-        }
-
-        function closeDropdown() {
-            const languageSelector = document.querySelector('.language-selector');
-            languageSelector.classList.remove('active');
-        }
-
-        document.addEventListener('click', closeDropdown);
-
-        // وظيفة لنقل النص إلى ملف home.csv
         function saveToCSV() {
             const inputText = document.getElementById('input').value;
-            const csvContent = 'data:text/csv;charset=utf-8,' + encodeURIComponent(inputText);
-            const link = document.createElement('a');
-            link.setAttribute('href', csvContent);
-            link.setAttribute('download', 'home.csv');
-            link.click();
+            const formData = new FormData();
+            formData.append('text', inputText);
+
+            fetch('save.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => alert(data))
+            .catch(error => console.error('Error:', error));
         }
     </script>
 </body>
