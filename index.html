@@ -1,14 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- [الكود الحالي كما هو] -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MY7CODE</title>
+    <style>
+        /* إعدادات الخلفية والهيكل */
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #6a00ff, #a37df8);
+            font-family: Arial, sans-serif;
+        }
+
+        /* إعدادات شريط العنوان العلوي */
+        .top-bar {
+            width: 100%;
+            background-color: #6536DC;
+            color: #ffffff;
+            padding: 25px 0;
+            text-align: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        /* إعدادات العنوان */
+        h1, h2, p {
+            color: #ffffff;
+        }
+
+        h1 {
+            font-size: 37px;
+        }
+
+        h2 {
+            font-size: 37px;
+        }
+
+        /* إعدادات الوصف */
+        p {
+            font-size: 17px;
+            margin: 10px 20px;
+            line-height: 1.6;
+        }
+
+        /* إعدادات حقل الإدخال */
+        input[type="text"] {
+            width: 272px;
+            padding: 14px;
+            margin: 0 auto 15px;
+            display: block;
+            border-radius: 8px;
+            border: 1px solid #ffffff;
+            background: #946BE3;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            outline: none;
+            font-size: 14px;
+        }
+
+        /* إعدادات الزر */
+        .btn {
+            display: block;
+            width: 300px;
+            padding: 12px;
+            margin: 0 auto;
+            background: linear-gradient(45deg, #EC4C96, #FB8C44);
+            border: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
+            text-align: center;
+        }
+
+        /* تأثير الضغط على الزر */
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* إعدادات حاوية العناصر */
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        /* إعدادات أيقونة اللغة */
+        .language-selector {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 18px;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        /* إعدادات القائمة المنسدلة */
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 40px;
+            right: 10px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            width: 150px;
+            text-align: left;
+            z-index: 1000;
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 10px;
+            color: #000000;
+            text-decoration: none;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .dropdown a:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* عرض القائمة عند النقر */
+        .language-selector.active + .dropdown {
+            display: block;
+        }
+    </style>
 </head>
 <body>
-    <!-- [الكود الحالي كما هو] -->
+    <!-- شريط العنوان العلوي -->
+    <div class="top-bar">
+        <div class="language-selector" onclick="toggleDropdown(event)">
+            Language
+        </div>
+        <div class="dropdown">
+            <a href="#" onclick="changeLanguage('en'); closeDropdown()">English</a>
+            <a href="#" onclick="changeLanguage('ar'); closeDropdown()">العربية</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 id="title">Free AI Rhyme</h1>
+        <h2 id="subtitle">Generator</h2>
+        <p id="description">Create engaging rhymes and short poems with AI assistance. Perfect for poets, songwriters, and creative minds.</p>
+        <input type="text" id="input" placeholder="Enter a word or phrase to get the rhyme">
+        <button class="btn" id="button" onclick="saveToCSV()">Generate Rhyme</button>
+    </div>
 
     <script>
         let translations = {};
 
+        // تحميل الترجمات من ملف JSON
         fetch('translations.json')
             .then(response => response.json())
             .then(data => {
@@ -52,8 +206,5 @@
             link.click();
         }
     </script>
-
-    <!-- تحديث زر الاستدعاء -->
-    <button class="btn" id="button" onclick="saveToCSV()">Generate Rhyme</button>
 </body>
 </html>
