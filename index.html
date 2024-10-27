@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- [الكود الحالي كما هو] -->
+</head>
+<body>
+    <!-- [الكود الحالي كما هو] -->
+
+    <script>
+        let translations = {};
+
+        fetch('translations.json')
+            .then(response => response.json())
+            .then(data => {
+                translations = data;
+            });
+
+        function toggleDropdown(event) {
+            event.stopPropagation();
+            const languageSelector = document.querySelector('.language-selector');
+            languageSelector.classList.toggle('active');
+        }
+
+        function changeLanguage(lang) {
+            const title = document.getElementById('title');
+            const subtitle = document.getElementById('subtitle');
+            const description = document.getElementById('description');
+            const input = document.getElementById('input');
+            const button = document.getElementById('button');
+
+            title.textContent = translations[lang].title;
+            subtitle.textContent = translations[lang].subtitle;
+            description.textContent = translations[lang].description;
+            input.placeholder = translations[lang].input_placeholder;
+            button.textContent = translations[lang].button_text;
+        }
+
+        function closeDropdown() {
+            const languageSelector = document.querySelector('.language-selector');
+            languageSelector.classList.remove('active');
+        }
+
+        document.addEventListener('click', closeDropdown);
+
+        // وظيفة لنقل النص إلى ملف home.csv
+        function saveToCSV() {
+            const inputText = document.getElementById('input').value;
+            const csvContent = 'data:text/csv;charset=utf-8,' + encodeURIComponent(inputText);
+            const link = document.createElement('a');
+            link.setAttribute('href', csvContent);
+            link.setAttribute('download', 'home.csv');
+            link.click();
+        }
+    </script>
+
+    <!-- تحديث زر الاستدعاء -->
+    <button class="btn" id="button" onclick="saveToCSV()">Generate Rhyme</button>
+</body>
+</html>
