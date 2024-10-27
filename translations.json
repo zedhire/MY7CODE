@@ -1,0 +1,24 @@
+{
+    "en": {
+        "title": "Free AI Rhyme",
+        "subtitle": "Generator",
+        "description": "Create engaging rhymes and short poems with AI assistance. Perfect for poets, songwriters, and creative minds.",
+        "input_placeholder": "Enter a word or phrase to get the rhyme",
+        "button_text": "Generate Rhyme",
+        "language": "🌐 Language",
+        "english": "English",
+        "french": "Français",
+        "arabic": "العربية"
+    },
+    "ar": {
+        "title": "مولد قافية AI مجانية",
+        "subtitle": "مولد",
+        "description": "أنشئ قوافي قصيرة وشعر مثير للاهتمام بمساعدة الذكاء الاصطناعي. مثالي للشعراء وكتاب الأغاني والعقول المبدعة.",
+        "input_placeholder": "أدخل كلمة أو عبارة للحصول على القافية",
+        "button_text": "إنشاء قافية",
+        "language": "🌐 اللغة",
+        "english": "الإنجليزية",
+        "french": "الفرنسية",
+        "arabic": "العربية"
+    }
+}
